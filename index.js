@@ -1,5 +1,6 @@
 import { isIphoneX } from "react-native-iphone-x-helper";
 import { Platform, StatusBar, Dimensions } from "react-native";
+import { isTablet } from "react-native-device-info";
 
 export function RFPercentage(percent) {
   const { height, width } = Dimensions.get("window");
@@ -18,6 +19,9 @@ export function RFPercentage(percent) {
 
 // guideline height for standard 5" device screen is 680
 export function RFValue(fontSize, standardScreenHeight = 680) {
+  if (Platform.OS === "android" && isTablet()) {
+    standardScreenHeight = 1426
+  }
   const { height, width } = Dimensions.get("window");
   const standardLength = width > height ? width : height;
   const offset =
